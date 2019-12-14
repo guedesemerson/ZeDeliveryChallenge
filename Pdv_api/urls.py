@@ -22,13 +22,23 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+list_actions = {
+    'get': 'list',
+    'post': 'create'
+}
 
+single_actions = {
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+}
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
+      title="Api Zé Carioca",
       default_version='v1',
-      description="Test description",
+      description="Api de cadastros de pontos de vendas",
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),
@@ -45,6 +55,8 @@ urlpatterns = [
 
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0,), name='schema-redoc'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('pdv/', PdvViewSet.as_view(list_actions), name='transactions'),
+    path('pdv/<pk>', PdvViewSet.as_view(single_actions), name='transaction'),
 
 ]

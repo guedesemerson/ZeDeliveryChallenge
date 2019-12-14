@@ -8,7 +8,7 @@ class Pdv(models.Model):
     tradingName = models.CharField(max_length=150, blank=False)
     ownerName = models.CharField(max_length=100, blank=False)
     cnpj =  BRCNPJField(blank=False, unique=True)
-    coverageArea = tipo.MultiPolygonField(blank=False)
+    coverageArea = tipo.MultiPolygonField(blank=True)
     address = tipo.PointField(blank=False)
 
 
